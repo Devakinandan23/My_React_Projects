@@ -1,0 +1,82 @@
+<!-- <body>
+    <div id="counter-button"></div>
+</body>
+<script>
+    let state = {
+        count: Number(localStorage.getItem("count")) || 0  // Ensure count is a number
+    };
+    // localStorage.setItem("state",0);
+    // localStorage.setItem("count",state.count);
+    
+
+    function onSubmitCount(){
+        state.count++;
+        localStorage.setItem("count",state.count);
+        const body = document.getElementById("counter-button");
+        const button = document.querySelector('.but');
+        button.innerHTML = `count ${localStorage.getItem("count")}`;
+    }
+
+    
+
+    function createCounterButton(count){
+        const countButton = document.createElement('button');
+        countButton.innerHTML = "count " + localStorage.getItem("count");
+        countButton.setAttribute('class','but');
+        countButton.setAttribute('onclick','onSubmitCount()');
+        
+        const body = document.getElementById("counter-button");
+        body.appendChild(countButton);
+
+        document.querySelector('.but').addEventListener("onkeydown", function(e){
+            console.log(e.key);
+            if(e.key == "Escape"){
+                localStorage.setItem("count",0);
+            }
+        })
+    }
+
+    createCounterButton(state.count);
+</script> -->
+
+<body>
+    <div id="counter-button"></div>
+</body>
+<script>
+    let state = {
+        count: Number(localStorage.getItem("count")) || 0  // Ensure count is a number
+    };
+
+    function onSubmitCount(){
+        state.count++;
+        localStorage.setItem("count", state.count);
+        updateButton();
+    }
+
+    function updateButton() {
+        const button = document.querySelector('.but');
+        if (button) {
+            button.innerHTML = `count ${state.count}`;
+        }
+    }
+
+    function createCounterButton(count){
+        const countButton = document.createElement('button');
+        countButton.innerHTML = `count ${count}`;
+        countButton.setAttribute('class', 'but');
+        countButton.setAttribute('onclick', 'onSubmitCount()');
+        
+        document.getElementById("counter-button").appendChild(countButton);
+
+        // Add keydown event listener for resetting the count
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape") {
+                localStorage.setItem("count", 0);
+                state.count = 0;
+                updateButton();
+            }
+        });
+    }
+
+    createCounterButton(state.count);
+</script>
